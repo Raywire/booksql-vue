@@ -9,6 +9,7 @@ query($id: ID!) {
     description
     featured
     category {
+      id
       name
     }
   }

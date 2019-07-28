@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <router-link to="/books/add">Add a book</router-link>
     <!-- Apollo Query -->
     <ApolloQuery :query="categoriesQuery">
       <!-- The result will automatically updated -->
@@ -120,9 +121,18 @@ export default {
   name: "home",
   components:{},
   data() {
-    return { categoryQuery, categoriesQuery, booksQuery,
-  booksFeaturedQuery, selectedCategory: "all", query: booksQuery, categories: [],
-  books: [], count: 20, page: 1 } 
+    return { 
+      categoryQuery,
+      categoriesQuery,
+      booksQuery,
+      booksFeaturedQuery,
+      selectedCategory: "all",
+      query: booksQuery,
+      categories: [],
+      books: [],
+      count: 20,
+      page: 1 
+    } 
   },
   methods: {
     selectCategory(category)
@@ -130,18 +140,22 @@ export default {
       if(category === "all")
       { 
         this.query = booksQuery
+      } else if (category === "featured")
+      { 
+        this.query = booksFeaturedQuery
       }
-      else if (category === "featured")
-      { this.query = booksFeaturedQuery }
-      else { this.query = categoryQuery } this.selectedCategory = category
-      },
+      else { 
+        this.query = categoryQuery
+      }
+      this.selectedCategory = category
+    },
     loadNext() { 
       this.page += 1
     },
     loadPrevious() { 
       this.page -= 1
     }
-  } 
+  }
 }
 </script>
 <style>
